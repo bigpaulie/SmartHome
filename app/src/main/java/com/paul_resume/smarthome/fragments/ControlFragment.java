@@ -1,4 +1,4 @@
-package com.paul_resume.smarthome;
+package com.paul_resume.smarthome.fragments;
 
 
 import android.app.FragmentTransaction;
@@ -13,9 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.Toast;
+
+import com.paul_resume.smarthome.MainActivity;
+import com.paul_resume.smarthome.R;
+import com.paul_resume.smarthome.SettingsActivity;
 
 
 /**

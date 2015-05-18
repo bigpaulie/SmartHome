@@ -1,35 +1,25 @@
 package com.paul_resume.smarthome;
 
 import android.app.Activity;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.paul_resume.smarthome.adapters.Buttons;
-import com.paul_resume.smarthome.adapters.ButtonsListAdapter;
+import com.paul_resume.smarthome.fragments.ControlFragment;
 import com.paul_resume.smarthome.services.WeatherService;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Filter;
 
 
 public class MainActivity extends Activity {
@@ -50,7 +40,7 @@ public class MainActivity extends Activity {
          * */
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ControlFragment controlFragment = new ControlFragment();
-        ft.add(R.id.controlView , controlFragment);
+        ft.add(R.id.controlView, controlFragment);
         ft.commit();
 
         // Find all views

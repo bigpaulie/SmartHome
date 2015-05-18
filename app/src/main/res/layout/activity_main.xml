@@ -11,7 +11,7 @@
         android:id="@+id/weatherView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        class="com.paul_resume.smarthome.WeatherFragment"
+        class="com.paul_resume.smarthome.fragments.WeatherFragment"
         tools:layout="@layout/fragment_weather"
         android:layout_gravity="center_horizontal" />
 
@@ -19,7 +19,7 @@
         <!--android:id="@+id/controlView"-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="wrap_content"-->
-        <!--class="com.paul_resume.smarthome.ControlFragment"-->
+        <!--class="com.paul_resume.smarthome.fragments.ControlFragment"-->
         <!--tools:layout="@layout/fragment_control" />-->
 
     <LinearLayout

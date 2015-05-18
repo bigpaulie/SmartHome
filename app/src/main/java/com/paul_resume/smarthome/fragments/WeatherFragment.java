@@ -1,4 +1,4 @@
-package com.paul_resume.smarthome;
+package com.paul_resume.smarthome.fragments;
 
 
 import android.app.Activity;
@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.paul_resume.smarthome.R;
 import com.paul_resume.smarthome.services.WeatherService;
 
 

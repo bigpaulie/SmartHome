@@ -1,4 +1,4 @@
-package com.paul_resume.smarthome;
+package com.paul_resume.smarthome.fragments;
 
 
 import android.app.FragmentTransaction;
@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.paul_resume.smarthome.MainActivity;
+import com.paul_resume.smarthome.R;
 import com.paul_resume.smarthome.adapters.Buttons;
 import com.paul_resume.smarthome.adapters.ButtonsListAdapter;
 
