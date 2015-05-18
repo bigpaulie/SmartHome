@@ -18,9 +18,14 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.paul_resume.smarthome.adapters.Buttons;
+import com.paul_resume.smarthome.adapters.ButtonsListAdapter;
 import com.paul_resume.smarthome.services.WeatherService;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -30,6 +35,8 @@ import java.util.logging.Filter;
 public class MainActivity extends Activity {
 
     public ImageView weatherIcon = null;
+    public static String BUTTON_ID = null;
+    public static int BUTTON_ICON;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +44,14 @@ public class MainActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+
+        /**
+         * Add the control fragment to the view
+         * */
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ControlFragment controlFragment = new ControlFragment();
+        ft.add(R.id.controlView , controlFragment);
+        ft.commit();
 
         // Find all views
         final TextView temp = (TextView)findViewById(R.id.txtTemp);
@@ -72,7 +87,7 @@ public class MainActivity extends Activity {
             @Override
             public void run() {
                 // Start a new intent service and grab new weather data
-                Intent intent = new Intent(MainActivity.this , WeatherService.class);
+                Intent intent = new Intent(MainActivity.this, WeatherService.class);
                 startService(intent);
             }
         }, 0, 30, TimeUnit.MINUTES);
@@ -80,6 +95,7 @@ public class MainActivity extends Activity {
         /**
          * Control Fragment buttons & actions
          * */
+
 
     }
 

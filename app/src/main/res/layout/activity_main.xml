@@ -15,11 +15,17 @@
         tools:layout="@layout/fragment_weather"
         android:layout_gravity="center_horizontal" />
 
-    <fragment
+    <!--<fragment-->
+        <!--android:id="@+id/controlView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--class="com.paul_resume.smarthome.ControlFragment"-->
+        <!--tools:layout="@layout/fragment_control" />-->
+
+    <LinearLayout
         android:id="@+id/controlView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        class="com.paul_resume.smarthome.ControlFragment"
-        tools:layout="@layout/fragment_control" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"></LinearLayout>
 
 </LinearLayout>

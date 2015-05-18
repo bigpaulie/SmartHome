@@ -15,87 +15,93 @@
             android:layout_height="wrap_content">
 
             <TableRow android:gravity="center_horizontal">
-
                 <Button
+                    android:id="@+id/ctrlButton1"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_margin="10dp"
-                    android:text=""
                     android:textStyle="bold"
                     android:textSize="30sp"
-                    android:background="@drawable/lightbulb14"/>
-
+                    android:text="+" />
                 <Button
+                    android:id="@+id/ctrlButton2"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_margin="10dp"
-                    android:text=""
                     android:textStyle="bold"
                     android:textSize="30sp"
-                    android:background="@drawable/electric43"/>
-
+                    android:text="+" />
                 <Button
+                    android:id="@+id/ctrlButton3"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_margin="10dp"
-                    android:text=""
                     android:textStyle="bold"
                     android:textSize="30sp"
+                    android:text="+" />
+            </TableRow>
+
+            <TableRow android:gravity="center_horizontal">
+
+                <Button
+                    android:id="@+id/ctrlButton4"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="10dp"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:text="+" />
+
+                <Button
+                    android:id="@+id/ctrlButton5"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="10dp"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:text="+" />
+
+                <Button
+                    android:id="@+id/ctrlButton6"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="10dp"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:text="+" />
+
+            </TableRow>
+
+            <TableRow android:gravity="center_horizontal">
+
+                <Button
+                    android:id="@+id/ctrlButton7"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="10dp"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:text="+" />
+
+                <Button
+                    android:id="@+id/ctrlButton8"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="10dp"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:text="+" />
+
+                <Button
+                    android:id="@+id/ctrlSettings"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="10dp"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:text=""
                     android:background="@drawable/settings48"/>
-            </TableRow>
 
-            <TableRow android:gravity="center_horizontal">
-
-                <Button
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="10dp"
-                    android:text="+"
-                    android:textStyle="bold"
-                    android:textSize="30sp"/>
-
-                <Button
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="10dp"
-                    android:text="+"
-                    android:textStyle="bold"
-                    android:textSize="30sp"/>
-
-                <Button
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="10dp"
-                    android:text="+"
-                    android:textStyle="bold"
-                    android:textSize="30sp"/>
-            </TableRow>
-
-            <TableRow android:gravity="center_horizontal">
-
-                <Button
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="10dp"
-                    android:text="+"
-                    android:textStyle="bold"
-                    android:textSize="30sp"/>
-
-                <Button
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="10dp"
-                    android:text="+"
-                    android:textStyle="bold"
-                    android:textSize="30sp"/>
-
-                <Button
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="10dp"
-                    android:text="+"
-                    android:textStyle="bold"
-                    android:textSize="30sp"/>
             </TableRow>
 
         </TableLayout>
