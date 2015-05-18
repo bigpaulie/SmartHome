@@ -53,21 +53,18 @@ public class ButtonsIncoListFragment extends Fragment {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                MainActivity.BUTTON_ICON = buttons.get(position).getIcon();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                ControlFragment fragment = new ControlFragment();
+                ChoiceFragment fragment = new ChoiceFragment();
                 transaction.replace(R.id.controlView, fragment);
+                transaction.addToBackStack(null);
                 transaction.commit();
-
-                Intent intent = new Intent(ACTION_UPDATE_BUTTON);
-                intent.putExtra("BUTTON_ID" , MainActivity.BUTTON_ID);
-                intent.putExtra("BUTTONICON" , buttons.get(position).getIcon());
-                LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
             }
         });
     }
 
     protected void loadIcons(){
+        buttons.clear();
+
         Buttons buttonSettings = new Buttons();
         buttonSettings.setIcon(R.drawable.settings48);
         buttonSettings.setName("Settings icon");
