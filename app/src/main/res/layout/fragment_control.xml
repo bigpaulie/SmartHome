@@ -22,7 +22,8 @@
                     android:layout_margin="10dp"
                     android:textStyle="bold"
                     android:textSize="30sp"
-                    android:text="+" />
+                    android:text=""
+                    android:background="@drawable/lightbulb14"/>
                 <Button
                     android:id="@+id/ctrlButton2"
                     android:layout_width="150dp"
@@ -30,7 +31,8 @@
                     android:layout_margin="10dp"
                     android:textStyle="bold"
                     android:textSize="30sp"
-                    android:text="+" />
+                    android:text=""
+                    android:background="@drawable/electric43"/>
                 <Button
                     android:id="@+id/ctrlButton3"
                     android:layout_width="150dp"
@@ -38,7 +40,8 @@
                     android:layout_margin="10dp"
                     android:textStyle="bold"
                     android:textSize="30sp"
-                    android:text="+" />
+                    android:text=""
+                    android:background="@drawable/alarm54"/>
             </TableRow>
 
             <TableRow android:gravity="center_horizontal">
@@ -50,7 +53,8 @@
                     android:layout_margin="10dp"
                     android:textStyle="bold"
                     android:textSize="30sp"
-                    android:text="+" />
+                    android:text=""
+                    android:background="@drawable/minisplit"/>
 
                 <Button
                     android:id="@+id/ctrlButton5"
@@ -59,7 +63,8 @@
                     android:layout_margin="10dp"
                     android:textStyle="bold"
                     android:textSize="30sp"
-                    android:text="+" />
+                    android:text=""
+                    android:background="@drawable/livingroom19"/>
 
                 <Button
                     android:id="@+id/ctrlButton6"
@@ -68,7 +73,8 @@
                     android:layout_margin="10dp"
                     android:textStyle="bold"
                     android:textSize="30sp"
-                    android:text="+" />
+                    android:text=""
+                    android:background="@drawable/fish8"/>
 
             </TableRow>
 
@@ -81,7 +87,8 @@
                     android:layout_margin="10dp"
                     android:textStyle="bold"
                     android:textSize="30sp"
-                    android:text="+" />
+                    android:text=""
+                    android:background="@drawable/tv14"/>
 
                 <Button
                     android:id="@+id/ctrlButton8"
@@ -90,7 +97,22 @@
                     android:layout_margin="10dp"
                     android:textStyle="bold"
                     android:textSize="30sp"
-                    android:text="+" />
+                    android:text=""
+                    android:background="@drawable/ipad37"/>
+
+                <Button
+                    android:id="@+id/ctrlButton9"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="10dp"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:text=""
+                    android:background="@drawable/moon154"/>
+
+            </TableRow>
+
+            <TableRow android:gravity="center_horizontal">
 
                 <Button
                     android:id="@+id/ctrlSettings"

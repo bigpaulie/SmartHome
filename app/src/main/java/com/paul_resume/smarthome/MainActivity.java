@@ -13,9 +13,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.paul_resume.smarthome.adapters.Buttons;
 import com.paul_resume.smarthome.fragments.ControlFragment;
 import com.paul_resume.smarthome.services.WeatherService;
 
@@ -47,6 +49,8 @@ public class MainActivity extends Activity {
         ControlFragment controlFragment = new ControlFragment();
         ft.add(R.id.controlView, controlFragment);
         ft.commit();
+
+        Button demo = new Button(this);
 
     }
 

@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.paul_resume.smarthome.MainActivity;
 import com.paul_resume.smarthome.R;
@@ -41,16 +42,7 @@ public class ControlFragment extends Fragment {
         Button ctrlButton6 = (Button)getActivity().findViewById(R.id.ctrlButton6);
         Button ctrlButton7 = (Button)getActivity().findViewById(R.id.ctrlButton7);
         Button ctrlButton8 = (Button)getActivity().findViewById(R.id.ctrlButton8);
-
-        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-//                    Toast.makeText(getActivity() , "Received " + intent.getIntExtra("BUTTONICON" , 0) , Toast.LENGTH_SHORT).show();
-                    Button ctrlButton1 = (Button)getActivity().findViewById(R.id.ctrlButton1);
-                    ctrlButton1.setText("");
-                    ctrlButton1.setBackgroundResource(intent.getIntExtra("BUTTONICON" , 0));
-            }
-        } , new IntentFilter(ButtonsIncoListFragment.ACTION_UPDATE_BUTTON));
+        Button ctrlButton9 = (Button)getActivity().findViewById(R.id.ctrlButton9);
 
         /**
          * Register onClick listener for all control buttons
@@ -61,63 +53,63 @@ public class ControlFragment extends Fragment {
         ctrlButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(ctrlButton1.getText().toString().contentEquals("+")){
-                    ButtonsIncoListFragment fragment = new ButtonsIncoListFragment();
-                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                    transaction.replace(R.id.controlView , fragment);
-                    transaction.addToBackStack(null);
-                    transaction.commit();
-                    MainActivity.BUTTON_ID = "ctrlButton1";
-                }
+                Toast.makeText(getActivity() , "Not yet implemented !" , Toast.LENGTH_SHORT).show();
             }
         });
 
         ctrlButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Toast.makeText(getActivity() , "Not yet implemented !" , Toast.LENGTH_SHORT).show();
             }
         });
 
         ctrlButton3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Toast.makeText(getActivity() , "Not yet implemented !" , Toast.LENGTH_SHORT).show();
             }
         });
 
         ctrlButton4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Toast.makeText(getActivity() , "Not yet implemented !" , Toast.LENGTH_SHORT).show();
             }
         });
 
         ctrlButton5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Toast.makeText(getActivity() , "Not yet implemented !" , Toast.LENGTH_SHORT).show();
             }
         });
 
         ctrlButton6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Toast.makeText(getActivity() , "Not yet implemented !" , Toast.LENGTH_SHORT).show();
             }
         });
 
         ctrlButton7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Toast.makeText(getActivity() , "Not yet implemented !" , Toast.LENGTH_SHORT).show();
             }
         });
 
         ctrlButton8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(getActivity() , "Not yet implemented !" , Toast.LENGTH_SHORT).show();
+            }
+        });
 
+        ctrlButton9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity() , "Not yet implemented !" , Toast.LENGTH_SHORT).show();
             }
         });
 
