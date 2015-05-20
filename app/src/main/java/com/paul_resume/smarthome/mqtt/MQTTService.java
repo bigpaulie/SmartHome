@@ -1,6 +1,5 @@
 package com.paul_resume.smarthome.mqtt;
 
-import android.app.IntentService;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -8,24 +7,20 @@ import android.os.IBinder;
 import android.provider.Settings;
 import android.util.Log;
 
+import com.paul_resume.smarthome.AppSettings;
+
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
-import org.eclipse.paho.client.mqttv3.MqttMessage;
-import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 /**
  * Created by paul on 20.05.2015.
  */
-public class MQTTService extends Service{
+public class MQTTService extends Service {
 
-    public static final String TAG_COMMAND = "command";
-    public static final String ANDROID_ID = Settings.Secure.ANDROID_ID;
-    public static final String BROKER_URL = "tcp://mqtt.paul-resume.com:1883",
-                               TOPIC = "/paul/relays",
-                               USERNAME = "paul",
-                               PASSWORD ="1q2w3e4r)#";
+    public static final String TAG = "MQTT Service",
+            ANDROID_ID = Settings.Secure.ANDROID_ID;
 
     MQTTThread thread;
     MqttClient client;
@@ -33,7 +28,7 @@ public class MQTTService extends Service{
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        Log.d("MQTT" , "onHandleIntent");
+        Log.d("MQTT", "onHandleIntent");
         thread = new MQTTThread(getApplicationContext());
         thread.start();
 
@@ -59,24 +54,38 @@ public class MQTTService extends Service{
     public class MQTTThread extends Thread {
 
         Context context;
+        AppSettings settings;
 
         public MQTTThread(Context context) {
+
             this.context = context;
+            settings = new AppSettings(context);
         }
 
         @Override
         public void run() {
 
             try {
-                client = new MqttClient(BROKER_URL , ANDROID_ID , new MemoryPersistence());
-                client.setCallback(new MQTTPushCallback(context));
 
-                MqttConnectOptions options = new MqttConnectOptions();
-                options.setUserName(USERNAME);
-                options.setPassword(PASSWORD.toCharArray());
+                if (!settings.getBroker().isEmpty()) {
 
-                client.connect(options);
-                client.subscribe(TOPIC);
+                    client = new MqttClient(settings.getBroker(), ANDROID_ID, new MemoryPersistence());
+                    client.setCallback(new MQTTPushCallback(context));
+
+                    if (!settings.getUsername().isEmpty() || !settings.getPassword().isEmpty()) {
+                        MqttConnectOptions options = new MqttConnectOptions();
+                        options.setUserName(settings.getUsername());
+                        options.setPassword(settings.getPassword().toCharArray());
+                        client.connect(options);
+                    } else {
+                        client.connect();
+                    }
+
+                    client.subscribe(settings.getTopic());
+
+                } else {
+                    Log.d(TAG, "Broker URL not available !");
+                }
 
             } catch (MqttException e) {
                 e.printStackTrace();

@@ -67,7 +67,7 @@ public class ButtonsIncoListFragment extends Fragment {
 
         Buttons buttonSettings = new Buttons();
         buttonSettings.setIcon(R.drawable.settings48);
-        buttonSettings.setName("Settings icon");
+        buttonSettings.setName("AppSettings icon");
         buttons.add(buttonSettings);
 
         Buttons buttonWallSocket = new Buttons();

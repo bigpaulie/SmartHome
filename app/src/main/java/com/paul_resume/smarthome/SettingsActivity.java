@@ -4,14 +4,77 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class SettingsActivity extends ActionBarActivity {
+
+    AppSettings settings = null;
+    EditText broker;
+    EditText username;
+    EditText password;
+    EditText port;
+    EditText topic;
+    Button save;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        // AppSettings
+        settings = new AppSettings(this);
+
+        // find all views
+        broker = (EditText) findViewById(R.id.txtURL);
+        username = (EditText) findViewById(R.id.txtUsername);
+        password = (EditText) findViewById(R.id.txtPassword);
+        port = (EditText) findViewById(R.id.txtPort);
+        topic = (EditText) findViewById(R.id.txtTopic);
+        save = (Button) findViewById(R.id.settingsSave);
+
+        // populate fields
+        broker.setText(settings.getBroker());
+
+        if (!settings.getUsername().isEmpty()) {
+            username.setText(settings.getUsername());
+        }
+
+        if (!settings.getPassword().isEmpty()) {
+            password.setText(settings.getPassword());
+        }
+
+        if (settings.getPort() != 1883) {
+            port.setText(settings.getPort());
+        }
+
+        if (!settings.getTopic().isEmpty()) {
+            topic.setText(settings.getTopic());
+        }
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                try {
+                    settings.setBroker(broker.getText().toString());
+                    settings.setUsername(username.getText().toString());
+                    settings.setPassword(password.getText().toString());
+                    settings.setPort(Integer.parseInt(port.getText().toString()));
+                    settings.setTopic(topic.getText().toString());
+                } catch (Exception e){
+                    e.printStackTrace();
+                } finally {
+                    settings.commit();
+                }
+
+                Toast.makeText(SettingsActivity.this, "AppSettings Saved !", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     @Override

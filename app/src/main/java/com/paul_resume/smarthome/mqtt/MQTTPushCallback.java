@@ -13,7 +13,7 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
  */
 public class MQTTPushCallback implements MqttCallback {
 
-    public static final String TAG = "MQTT";
+    public static final String TAG = "MQTT Callback";
     Context context;
 
     public MQTTPushCallback(Context context) {
@@ -33,5 +33,6 @@ public class MQTTPushCallback implements MqttCallback {
     @Override
     public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
 //        Toast.makeText(context , "Command send !", Toast.LENGTH_SHORT).show();
+        Log.d(TAG , "deliveryComplete()");
     }
 }

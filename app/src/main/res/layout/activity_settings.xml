@@ -20,30 +20,53 @@
             android:text="Smart Home Settings"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="20dp" />
 
         <EditText
+            android:id="@+id/txtURL"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="tcp://mqtt.domain.com" />
+            android:hint="tcp://mqtt.domain.com"
+            android:inputType="text"
+            android:singleLine="true"
+            android:nextFocusDown="@+id/txtUsername"/>
 
         <EditText
+            android:id="@id/txtUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="username"
-            android:inputType="text"/>
+            android:inputType="text"
+            android:nextFocusDown="@+id/txtPassword"/>
 
         <EditText
+            android:id="@id/txtPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="password"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            android:nextFocusDown="@+id/txtPort"/>
 
         <EditText
+            android:id="@id/txtPort"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="port default 1883"
-            android:inputType="number"/>
+            android:inputType="number"
+            android:nextFocusDown="@+id/txtTopic"/>
+
+        <EditText
+            android:id="@id/txtTopic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="topic" />
+
+        <Button
+            android:id="@+id/settingsSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Save Settings"
+            android:layout_marginTop="15dp" />
 
     </LinearLayout>
 
