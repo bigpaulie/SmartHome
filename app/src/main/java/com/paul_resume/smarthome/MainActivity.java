@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.paul_resume.smarthome.adapters.Buttons;
 import com.paul_resume.smarthome.fragments.ControlFragment;
+import com.paul_resume.smarthome.mqtt.MQTTService;
 import com.paul_resume.smarthome.services.WeatherService;
 
 import java.util.concurrent.Executors;
@@ -41,6 +42,10 @@ public class MainActivity extends Activity {
         }else if(Orientation == Configuration.ORIENTATION_PORTRAIT){
             Log.d("PAUL" , "Portrait");
         }
+
+        // start sevice
+        Intent intent = new Intent(this , MQTTService.class);
+        startService(intent);
 
         /**
          * Add the control fragment to the view

@@ -53,7 +53,14 @@ public class ControlFragment extends Fragment {
         ctrlButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity() , "Not yet implemented !" , Toast.LENGTH_SHORT).show();
+                /**
+                 * Replace fragment with LightsControlFragment
+                 * */
+                LightsControlFragment fragment = new LightsControlFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.controlView , fragment , null);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 
