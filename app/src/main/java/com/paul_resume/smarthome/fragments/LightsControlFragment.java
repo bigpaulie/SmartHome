@@ -33,7 +33,8 @@ public class LightsControlFragment extends Fragment {
      */
     public static final String LIGHTS_LIGHT1 = "room:relay1",
             LIGHTS_LIGHT2 = "room:relay2",
-            LIGHTS_LIGHT3 = "room:relay3";
+            LIGHTS_LIGHT3 = "room:relay3",
+            LIGHTS_LIGHT4 = "room:relays:off";
     List<Lights> lights = new ArrayList<Lights>();
 
     public LightsControlFragment() {
@@ -71,9 +72,9 @@ public class LightsControlFragment extends Fragment {
                     Toast.makeText(getActivity(), "Not yet implemented !", Toast.LENGTH_SHORT).show();
                 } else {
                     Log.d("MQTT", "Publishing");
-//                    new MQTTPublisher(getActivity()).execute(lights.get(position).getCommand());
-                    Intent intent = new Intent(MQTTService.ACTION_RECEIVE);
-                    LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
+                    new MQTTPublisher(getActivity()).execute(lights.get(position).getCommand());
+//                    Intent intent = new Intent(MQTTService.ACTION_RECEIVE);
+//                    LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
                 }
             }
         });
@@ -110,5 +111,11 @@ public class LightsControlFragment extends Fragment {
         light2.setName("Reading light");
         light2.setCommand(LIGHTS_LIGHT3);
         lights.add(light2);
+
+        Lights light4 = new Lights();
+        light4.setIcon(R.drawable.road47);
+        light4.setName("Shutdown all");
+        light4.setCommand(LIGHTS_LIGHT4);
+        lights.add(light4);
     }
 }

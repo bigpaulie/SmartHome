@@ -16,9 +16,11 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.paul_resume.smarthome.adapters.Buttons;
 import com.paul_resume.smarthome.fragments.ControlFragment;
+import com.paul_resume.smarthome.mqtt.MQTTPushCallback;
 import com.paul_resume.smarthome.mqtt.MQTTService;
 import com.paul_resume.smarthome.services.WeatherService;
 
@@ -43,7 +45,7 @@ public class MainActivity extends Activity {
             Log.d("PAUL" , "Portrait");
         }
 
-        // start sevice
+        // start service
         Intent intent = new Intent(this , MQTTService.class);
         startService(intent);
 
@@ -55,7 +57,14 @@ public class MainActivity extends Activity {
         ft.add(R.id.controlView, controlFragment);
         ft.commit();
 
-        Button demo = new Button(this);
+        // Register Broadcast receiver for mqtt messages
+        LocalBroadcastManager.getInstance(this).registerReceiver(new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String message = intent.getStringExtra(MQTTPushCallback.EXTRA_MESSAGE);
+                Toast.makeText(MainActivity.this, message , Toast.LENGTH_SHORT).show();
+            }
+        } , new IntentFilter(MQTTPushCallback.ACTION_CALLBACK));
 
     }
 
