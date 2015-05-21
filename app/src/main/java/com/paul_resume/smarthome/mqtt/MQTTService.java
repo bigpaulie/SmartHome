@@ -1,10 +1,13 @@
 package com.paul_resume.smarthome.mqtt;
 
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.IBinder;
 import android.provider.Settings;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.paul_resume.smarthome.AppSettings;
@@ -20,15 +23,22 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 public class MQTTService extends Service {
 
     public static final String TAG = "MQTT Service",
-            ANDROID_ID = Settings.Secure.ANDROID_ID;
+            ANDROID_ID = Settings.Secure.ANDROID_ID,
+            ACTION_RECEIVE = "MQTT-Receive";
 
     MQTTThread thread;
     MqttClient client;
 
     @Override
+    public void onCreate() {
+        Log.d(TAG, "Service onCreate()");
+        super.onCreate();
+    }
+
+    @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        Log.d("MQTT", "onHandleIntent");
+        Log.d("MQTT", "onStartCommand()");
         thread = new MQTTThread(getApplicationContext());
         thread.start();
 
@@ -91,6 +101,13 @@ public class MQTTService extends Service {
                 e.printStackTrace();
             }
 
+        }
+    }
+
+    public class MQTTBroadcastReceiver extends BroadcastReceiver{
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.d(TAG , "Broadcast received");
         }
     }
 }

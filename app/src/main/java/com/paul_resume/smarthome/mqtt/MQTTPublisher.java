@@ -1,5 +1,6 @@
 package com.paul_resume.smarthome.mqtt;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -19,7 +20,9 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 public class MQTTPublisher extends AsyncTask<String, Void, Void> {
 
     public static final String TAG = "MQTT Publisher";
-    MqttClient client;
+
+
+    MqttClient client = null;
     Context context;
     AppSettings settings;
 
