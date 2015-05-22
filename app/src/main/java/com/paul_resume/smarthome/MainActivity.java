@@ -22,6 +22,7 @@ import com.paul_resume.smarthome.adapters.Buttons;
 import com.paul_resume.smarthome.fragments.ControlFragment;
 import com.paul_resume.smarthome.mqtt.MQTTPushCallback;
 import com.paul_resume.smarthome.mqtt.MQTTService;
+import com.paul_resume.smarthome.services.MqttService;
 import com.paul_resume.smarthome.services.WeatherService;
 
 import java.util.concurrent.Executors;
@@ -46,7 +47,7 @@ public class MainActivity extends Activity {
         }
 
         // start service
-        Intent intent = new Intent(this , MQTTService.class);
+        Intent intent = new Intent(this , MqttService.class);
         startService(intent);
 
         /**

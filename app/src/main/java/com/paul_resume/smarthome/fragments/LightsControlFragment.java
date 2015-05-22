@@ -17,8 +17,7 @@ import android.widget.Toast;
 import com.paul_resume.smarthome.R;
 import com.paul_resume.smarthome.adapters.Lights;
 import com.paul_resume.smarthome.adapters.LightsListAdapter;
-import com.paul_resume.smarthome.mqtt.MQTTPublisher;
-import com.paul_resume.smarthome.mqtt.MQTTService;
+import com.paul_resume.smarthome.services.MqttService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,9 +71,9 @@ public class LightsControlFragment extends Fragment {
                     Toast.makeText(getActivity(), "Not yet implemented !", Toast.LENGTH_SHORT).show();
                 } else {
                     Log.d("MQTT", "Publishing");
-                    new MQTTPublisher(getActivity()).execute(lights.get(position).getCommand());
-//                    Intent intent = new Intent(MQTTService.ACTION_RECEIVE);
-//                    LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
+                    Intent intent = new Intent(MqttService.ACTION_PUBLISH);
+                    intent.putExtra(MqttService.EXTRA_SEND_MESSAGE , lights.get(position).getCommand());
+                    LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
                 }
             }
         });

@@ -1,7 +1,11 @@
 package com.paul_resume.smarthome;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v4.content.LocalBroadcastManager;
+
+import com.paul_resume.smarthome.services.MqttService;
 
 /**
  * Created by paul on 20.05.2015.
@@ -16,8 +20,10 @@ public class AppSettings {
 
     SharedPreferences preferences = null;
     SharedPreferences.Editor editor = null;
+    Context context;
 
     public AppSettings(Context context) {
+        this.context = context;
         preferences = context.getSharedPreferences("com.paul_resume.smarthome",
                 Context.MODE_PRIVATE);
         editor = preferences.edit();
@@ -63,8 +69,14 @@ public class AppSettings {
         editor.putString(SETTINGS_TOPIC, topic);
     }
 
-    public void commit() {
-        editor.commit();
+    public boolean commit() {
+        if (editor.commit()) {
+            // broadcast message
+            Intent intent = new Intent(MqttService.ACTION_SETTINGS_CHANGE);
+            LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+            return true;
+        }
+        return false;
     }
 
 }
