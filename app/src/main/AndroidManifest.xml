@@ -4,6 +4,11 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <supports-screens
+        android:largeScreens="true"
+        android:normalScreens="true" />
 
     <application
         android:allowBackup="true"
@@ -29,9 +34,18 @@
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
+
+        <service
+            android:name=".services.MqttService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
+
+        <receiver android:name=".receivers.BootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
     </application>
-    <supports-screens
-        android:normalScreens="true"
-        android:largeScreens="true"/>
 
 </manifest>
