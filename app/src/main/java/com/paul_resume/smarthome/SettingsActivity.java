@@ -47,8 +47,8 @@ public class SettingsActivity extends ActionBarActivity {
             password.setText(settings.getPassword());
         }
 
-        if (settings.getPort() != 1883) {
-            port.setText(settings.getPort());
+        if (settings.getPort() > 0) {
+            port.setText(""+settings.getPort());
         }
 
         if (!settings.getTopic().isEmpty()) {

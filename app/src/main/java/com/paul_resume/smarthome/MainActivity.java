@@ -2,32 +2,16 @@ package com.paul_resume.smarthome;
 
 import android.app.Activity;
 import android.app.FragmentTransaction;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.res.Configuration;
-import android.support.v4.content.LocalBroadcastManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.paul_resume.smarthome.adapters.Buttons;
 import com.paul_resume.smarthome.fragments.ControlFragment;
-import com.paul_resume.smarthome.mqtt.MQTTPushCallback;
-import com.paul_resume.smarthome.mqtt.MQTTService;
 import com.paul_resume.smarthome.services.MqttService;
-import com.paul_resume.smarthome.services.WeatherService;
-
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 
 public class MainActivity extends Activity {
@@ -40,14 +24,14 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         int Orientation = getResources().getConfiguration().orientation;
-        if(Orientation == Configuration.ORIENTATION_LANDSCAPE){
-            Log.d("PAUL" , "Landscape");
-        }else if(Orientation == Configuration.ORIENTATION_PORTRAIT){
-            Log.d("PAUL" , "Portrait");
+        if (Orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            Log.d("PAUL", "Landscape");
+        } else if (Orientation == Configuration.ORIENTATION_PORTRAIT) {
+            Log.d("PAUL", "Portrait");
         }
 
         // start service
-        Intent intent = new Intent(this , MqttService.class);
+        Intent intent = new Intent(this, MqttService.class);
         startService(intent);
 
         /**
@@ -57,16 +41,6 @@ public class MainActivity extends Activity {
         ControlFragment controlFragment = new ControlFragment();
         ft.add(R.id.controlView, controlFragment);
         ft.commit();
-
-        // Register Broadcast receiver for mqtt messages
-        LocalBroadcastManager.getInstance(this).registerReceiver(new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                String message = intent.getStringExtra(MQTTPushCallback.EXTRA_MESSAGE);
-                Toast.makeText(MainActivity.this, message , Toast.LENGTH_SHORT).show();
-            }
-        } , new IntentFilter(MQTTPushCallback.ACTION_CALLBACK));
-
     }
 
     @Override
@@ -85,7 +59,7 @@ public class MainActivity extends Activity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent intent = new Intent(MainActivity.this , SettingsActivity.class);
+            Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             return true;

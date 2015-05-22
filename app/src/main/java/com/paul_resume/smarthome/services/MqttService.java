@@ -19,46 +19,85 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
-public class MqttService extends Service implements MqttCallback{
+/**
+ * MQTT Service
+ * Used to publish and subscribe to an MQTT Broker
+ * @author Paul Purcel <bigpaulie25ro@yahoo.com>
+ * TODO: add broadcast receiver for network status
+ * TODO: add mqtt ping method to keep alive the connection
+ */
+public class MqttService extends Service implements MqttCallback {
 
+    /**
+     * Service constants
+     * The ACTION_ constants represent Intents that the service
+     * broadcasts or receive
+     * The EXTRA_ constants represent various messages attached to the Intents
+     * */
+    public static final String TAG = "MQTTService";
+    public static final String ACTION_PUBLISH = "MQTTPublish",
+            ACTION_RECEIVED = "MQTTReceived",
+            ACTION_CONNECTION_LOST = "MQTTConnectionLost",
+            ACTION_DELIVERY_COMPLETE = "MQTTDeliveryComplete",
+            ACTION_SETTINGS_CHANGE = "MQTTSettingsChanged";
+
+    public static final String EXTRA_SEND_MESSAGE = "MQTTMessage",
+            EXTRA_RECEIVED_MESSAGE = "MQTTReceivedMessage",
+            EXTRA_ERROR_MESSAGE = "MQTTErrorMessage";
+
+    /**
+     * MQTT configuration constants
+     * */
+    public static final int KEEP_ALIVE = 20 * 60;
+
+    /**
+     * Declare service wise variables
+     * */
     MqttClient client;
     MqttConnectOptions options;
     AppSettings settings;
 
-    public static final String TAG = "MQTTService";
-
-    public static final String ACTION_PUBLISH = "MQTTPublish",
-                               ACTION_RECEIVED = "MQTTReceived",
-                               ACTION_CONNECTION_LOST = "MQTTConnectionLost",
-                               ACTION_DELIVERY_COMPLETE = "MQTTDeliveryComplete",
-                               ACTION_SETTINGS_CHANGE = "MQTTSettingsChanged";
-    public static final String EXTRA_SEND_MESSAGE = "MQTTMessage",
-                               EXTRA_RECEIVED_MESSAGE = "MQTTReceivedMessage",
-                               EXTRA_ERROR_MESSAGE = "MQTTErrorMessage";
-
-    public static final int KEEP_ALIVE = 20 * 60;
-
-    public MqttService() {
-
-    }
+    /**
+     * Empty constructor
+     * */
+    public MqttService() {}
 
     @Override
     public void onCreate() {
         super.onCreate();
+        /**
+         * Get application preferences
+         * */
         settings = new AppSettings(getApplicationContext());
         // connect to mqtt service
         doConnect();
 
-        // register broadcast receivers
+        /**
+         * Register broadcast receivers
+         * ACTION_PUBLISH for publishing over MQTT
+         * ACTION_SETTINGS_CHANGE for settings changing
+         * TODO: write a method to register the broadcasts receivers
+         * */
         LocalBroadcastManager.getInstance(getApplicationContext())
-                .registerReceiver(new PublishBroadcastReceiver() , new IntentFilter(ACTION_PUBLISH));
+                .registerReceiver(new PublishBroadcastReceiver(), new IntentFilter(ACTION_PUBLISH));
+
+        LocalBroadcastManager.getInstance(getApplicationContext())
+                .registerReceiver(new SettingsBroadcastReceiver(), new IntentFilter(ACTION_SETTINGS_CHANGE));
     }
 
+    /**
+     * Fired when service is started
+     * return START_STICKY to keep the service running in background
+     * */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         return START_STICKY;
     }
 
+    /**
+     * Fired when service is stopped
+     * disconnect form the MQTT Broker
+     * */
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -71,35 +110,56 @@ public class MqttService extends Service implements MqttCallback{
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
+    /**
+     * MQTT Connection lost callback
+     * We use this method to fire an event when the connection fails
+     * */
     @Override
     public void connectionLost(Throwable throwable) {
         Intent intent = new Intent(ACTION_CONNECTION_LOST);
-        intent.putExtra(EXTRA_ERROR_MESSAGE , throwable.getCause());
+        intent.putExtra(EXTRA_ERROR_MESSAGE, throwable.getCause());
         sendBroadcast(intent);
     }
 
+    /**
+     * MQTT message arrived callback
+     * We use this method to fire an event when a message arrives
+     * */
     @Override
     public void messageArrived(String s, MqttMessage mqttMessage) throws Exception {
         Intent intent = new Intent(ACTION_DELIVERY_COMPLETE);
-        intent.putExtra(EXTRA_RECEIVED_MESSAGE , mqttMessage.toString());
+        intent.putExtra(EXTRA_RECEIVED_MESSAGE, mqttMessage.toString());
         sendBroadcast(intent);
     }
 
+    /**
+     * MQTT Delivery complete callback
+     * Fired when the message has been delivered
+     * We use this method to fire an event
+     * */
     @Override
     public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
         Intent intent = new Intent(ACTION_DELIVERY_COMPLETE);
         sendBroadcast(intent);
     }
 
-    public void doConnect(){
-        Log.d(TAG , "doConnect()");
+    /**
+     * Connecting to the MQTT Broker
+     * This method opens a connection to the MQTT Broker
+     * TODO: check if internet connection is available before attempting to connect
+     */
+    public void doConnect() {
+        Log.d(TAG, "doConnect()");
         try {
-            client = new MqttClient(settings.getBroker()+":"+settings.getPort() , "" , new MemoryPersistence());
+            /**
+             * Connect to the broker and set the connection options
+             */
+            client = new MqttClient(settings.getBroker() + ":" + settings.getPort(), "", new MemoryPersistence());
             options = new MqttConnectOptions();
             options.setKeepAliveInterval(KEEP_ALIVE);
             client.setCallback(this);
 
-            if(!settings.getUsername().isEmpty() || !settings.getPassword().isEmpty()){
+            if (!settings.getUsername().isEmpty() || !settings.getPassword().isEmpty()) {
                 options.setUserName(settings.getUsername());
                 options.setPassword(settings.getPassword().toCharArray());
             }
@@ -111,8 +171,11 @@ public class MqttService extends Service implements MqttCallback{
         }
     }
 
-    public void doDisconnect(){
-        if(client != null){
+    /**
+     * Disconnect form the MQTT Broker
+     */
+    public void doDisconnect() {
+        if (client != null) {
             try {
                 client.disconnect();
             } catch (MqttException e) {
@@ -121,18 +184,26 @@ public class MqttService extends Service implements MqttCallback{
         }
     }
 
-    public void sendBroadcast(Intent intent){
+    /**
+     * Send Broadcasts
+     * @param intent
+     */
+    public void sendBroadcast(Intent intent) {
         LocalBroadcastManager.getInstance(getApplicationContext())
                 .sendBroadcast(intent);
     }
 
+    /**
+     * Broadcast receiver for publishing
+     * Receives an intent to publish a message to the Broker
+     */
     public class PublishBroadcastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if((client != null) && client.isConnected()){
+            if ((client != null) && client.isConnected()) {
                 String payload = intent.getStringExtra(EXTRA_SEND_MESSAGE);
                 try {
-                    client.publish(settings.getTopic() , new MqttMessage(payload.getBytes()));
+                    client.publish(settings.getTopic(), new MqttMessage(payload.getBytes()));
                 } catch (MqttException e) {
                     e.printStackTrace();
                 }
@@ -140,16 +211,15 @@ public class MqttService extends Service implements MqttCallback{
         }
     }
 
+    /**
+     * Broadcast receiver for settings
+     * Receives an intent when the application settings have been modified
+     */
     public class SettingsBroadcastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            try {
-                doDisconnect();
-                this.wait(1000);
-                doConnect();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            doDisconnect();
+            doConnect();
         }
     }
 }
